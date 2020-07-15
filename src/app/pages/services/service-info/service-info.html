@@ -1,0 +1,251 @@
+<ion-content>
+  <!-- *ngIf="(service$ | async); else load" -->
+  <div
+    [@enterAnimation]
+    class="main-content mt-6 p-0 p-sm-2 p-md-4"
+  >
+    <div class="container-fluid pb-4">
+      <div class="row">
+        <div class="col">
+          <h4 class="header-pretitle">Service Name</h4>
+          <h2 class="header-title">{{ (service$ | async)?.service_name }}</h2>
+        </div>
+
+        <div *ngIf="canCancel" class="col-auto">
+          <div
+            (click)="unsubscribeFromService()"
+            class="btn btn-outline-danger btn-block"
+          >
+            Cancel Subscription
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-4" />
+
+      <div class="row mt-4">
+        <div class="col-12 col-md-4">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="header-pretitle">Plan Info</h4>
+            </div>
+            <div class="card-body">
+              <!-- List group -->
+              <div class="list-group list-group-flush my-n3">
+                <div class="list-group-item">
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <!-- Title -->
+                      <h4 class="mb-0">
+                        Renewal Day
+                      </h4>
+                    </div>
+                    <div class="col-auto">
+                      <!-- Time -->
+                      <time class="text-muted" datetime="2018-10-28">
+                        <!-- {{ (service$ | async)?.plans?.data.plan_day + 'th' }} -->
+                      </time>
+                    </div>
+                  </div>
+                  <!-- / .row -->
+                </div>
+                <div class="list-group-item">
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <!-- Title -->
+                      <h4 class="mb-0">
+                        Monthly Charge
+                      </h4>
+                    </div>
+                    <div class="col-auto">
+                      <!-- Text -->
+                      <small class="text-muted">
+                        <!-- {{ (service$ | async)?.plans?.data.plan_cost | currency
+                        }} -->
+                      </small>
+                    </div>
+                  </div>
+                  <!-- / .row -->
+                </div>
+                <div class="list-group-item">
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <!-- Title -->
+                      <h4 class="mb-0">
+                        Last Change
+                      </h4>
+                    </div>
+                    <div class="col-auto">
+                      <!-- Link -->
+                      <a *ngIf="(service$ | async).plans" href="#!" class="">
+                        <!-- {{ (service$ | async)?.plans?.data.stamp_created * 1000
+                        | timeago }} -->
+                      </a>
+                    </div>
+                  </div>
+                  <!-- / .row -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="card">
+            <div class="card-body p-2">
+              <div class="row align-items-center p-2">
+                <div class="col">
+                  <!-- Title -->
+                  <h4 class="text-uppercase text-muted mb-2">
+                    Service Owner
+                  </h4>
+                </div>
+                <div class="col-auto">
+                  <!-- Icon -->
+                  <div class="card-body p-0 text-center">
+                    <!-- Image -->
+                    <a href="javascript:;" class="avatar avatar-xl card-avatar">
+                      <img
+                        src="../assets/img/user-placeholder.png"
+                        class="avatar-img rounded-circle border border-4 border-card"
+                        alt="..."
+                      />
+                    </a>
+
+                    <!-- Heading -->
+                    <h2 class="card-title">
+                      <a href="javascript:;"
+                        >{{ (service$ | async)?.owner?.name }}</a
+                      >
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- / .row -->
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <!-- Card -->
+          <div
+            class="card"
+            [ngClass]="{
+              'active': (service$ | async)?.plans?.data.plan_type === 'Simple Block Storage'
+            }"
+          >
+            <div class="card-body">
+              <!-- Title -->
+              <h6 class="text-uppercase text-center text-muted my-4">
+                Simple Block Storage
+              </h6>
+
+              <!-- Price -->
+              <div
+                class="row no-gutters align-items-center justify-content-center"
+              >
+                <div class="col-auto">
+                  <div class="h2 mb-0">$</div>
+                </div>
+                <div class="col-auto">
+                  <div class="display-2 mb-0">4.99</div>
+                </div>
+              </div>
+              <!-- / .row -->
+
+              <!-- Period -->
+              <div class="h6 text-uppercase text-center text-muted mb-5">
+                / month
+              </div>
+
+              <!-- Features -->
+              <div class="mb-3">
+                <ul class="list-group list-group-flush">
+                  <li
+                    class="list-group-item d-flex align-items-center justify-content-between px-0"
+                  >
+                    <small>Unlimited activity</small>
+                    <i class="fe fe-check-circle text-success"></i>
+                  </li>
+                  <li
+                    class="list-group-item d-flex align-items-center justify-content-between px-0"
+                  >
+                    <small>Direct messaging</small>
+                    <i class="fe fe-check-circle text-success"></i>
+                  </li>
+                  <li
+                    class="list-group-item d-flex align-items-center justify-content-between px-0"
+                  >
+                    <small>Limited Formats</small>
+                    <small>.wav, .mov, .mp4, .mp3</small>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card -->
+          <div
+            *ngIf="false"
+            class="card"
+            [ngClass]="{
+              'active': (service$ | async)?.plans?.data.plan_type === 'Smart Block Storage'
+            }"
+          >
+            <div class="card-body">
+              <!-- Title -->
+              <h6 class="text-uppercase text-center text-muted my-4">
+                Smart Block Storage
+              </h6>
+
+              <!-- Price -->
+              <div
+                class="row no-gutters align-items-center justify-content-center"
+              >
+                <div class="col-auto">
+                  <div class="h2 mb-0">$</div>
+                </div>
+                <div class="col-auto">
+                  <div class="display-2 mb-0">24.99</div>
+                </div>
+              </div>
+              <!-- / .row -->
+
+              <!-- Period -->
+              <div class="h6 text-uppercase text-center text-muted mb-5">
+                / month
+              </div>
+
+              <!-- Features -->
+              <div class="mb-3">
+                <ul class="list-group list-group-flush">
+                  <li
+                    class="list-group-item d-flex align-items-center justify-content-between px-0"
+                  >
+                    <small>Unlimited activity</small>
+                    <i class="fe fe-check-circle text-success"></i>
+                  </li>
+                  <li
+                    class="list-group-item d-flex align-items-center justify-content-between px-0"
+                  >
+                    <small>Direct messaging</small>
+                    <i class="fe fe-check-circle text-success"></i>
+                  </li>
+                  <li
+                    class="list-group-item d-flex align-items-center justify-content-between px-0"
+                  >
+                    <small>Unlimited Formats</small>
+                    <i class="fe fe-check-circle text-success"></i>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</ion-content>
+<ng-template #load>
+  <app-loader [@enterAnimation]></app-loader>
+</ng-template>

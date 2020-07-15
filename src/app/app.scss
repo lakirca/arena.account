@@ -1,0 +1,88 @@
+@import '~@ionic/angular/css/display.css';
+
+@import '../style/common.scss';
+@import '../style/font.scss';
+@import '../style/mixin.scss';
+@import '../style/responsive.scss';
+
+*,
+body,
+html,
+a,
+b,
+button,
+footer,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+input,
+li,
+nav,
+ul,
+p,
+span,
+select,
+textarea,
+label {
+  color: var(--primary-color);
+  font-family: 'Cerebri Sans', sans-serif;
+  user-select: none !important;
+  -ms-user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  // ::-webkit-scrollbar {
+  //   -webkit-appearance: none;
+  //   width: 2px;
+  // }
+  // ::-webkit-scrollbar-thumb {
+  //   border-radius: 5px;
+  //   background: rgba(0, 0, 0, 0.5);
+  // }
+  // ::-webkit-scrollbar-track {
+  //   width: 1px;
+  // }
+  // ::-webkit-scrollbar-button {
+  //   width: 1px;
+  // }
+}
+
+ion-button,
+ion-label,
+ion-input,
+ion-textarea {
+  // font-family: 'Lato Light';
+  font-family: 'Cerebri Sans', sans-serif;
+}
+
+.ion-page {
+  background: var(--background-default);
+}
+
+ion-content {
+  --background: var(--background-default);
+}
+ion-row,
+ion-col,
+ion-grid {
+  padding: 0px;
+}
+
+.ngx-pagination .current {
+  background: transparent !important;
+  color: #2c7be5 !important;
+}
+
+.ngx-pagination a:hover,
+.ngx-pagination button:hover {
+  background: transparent !important;
+  color: #2c7be5 !important;
+}
+
+.ngx-pagination a,
+.ngx-pagination button {
+  color: #909090 !important;
+}

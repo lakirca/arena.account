@@ -1,0 +1,9 @@
+.payment-btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+.card.active {
+  border: 1px solid var(--hover-color);
+}

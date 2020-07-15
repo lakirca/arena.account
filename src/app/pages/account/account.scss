@@ -1,0 +1,22 @@
+.primary-star {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+}
+
+.custom-card {
+  margin: 0 auto;
+  max-width: 400px;
+}
+
+#old-password-eye,
+#new-password-eye,
+#confirm-password-eye {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.hidden {
+  visibility: hidden;
+}

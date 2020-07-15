@@ -1,0 +1,175 @@
+<div class="container m-auto overflow-auto">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-5 col-xl-4 my-5">
+      <!-- Heading -->
+      <h1 class="display-4 text-center mb-3">
+        Sign up
+      </h1>
+
+      <!-- Subheading -->
+      <p class="text-muted text-center mb-5">
+        Free access to our dashboard.
+      </p>
+
+      <!-- Form -->
+      <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+        <!-- Username -->
+        <div class="form-group">
+          <!-- Label -->
+          <label>
+            Username
+          </label>
+
+          <!-- Input -->
+          <input
+            type="text"
+            class="form-control"
+            name="name_first"
+            [(ngModel)]="name_first"
+            #user="ngModel"
+            required
+            class="form-control"
+            [ngClass]="{ 'is-invalid':!user.valid && (!user.pristine || form.submitted)}"
+          />
+        </div>
+
+        <!-- Email address -->
+        <div class="form-group">
+          <!-- Label -->
+          <label>
+            Email Address
+          </label>
+
+          <!-- Input -->
+          <input
+            type="email"
+            pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{1,}[.]{1}[a-zA-Z]{2,}"
+            name="email"
+            [(ngModel)]="email"
+            #e="ngModel"
+            required
+            class="form-control"
+            [ngClass]="{ 'is-invalid':!e.valid && (!e.pristine || form.submitted)}"
+          />
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <div class="row">
+            <label class="col">
+              Password
+            </label>
+
+            <label class="col-auto">
+              <ion-text
+                class="strength-level"
+                [ngClass]="
+                passwordStrength === 'Strong'
+              ? 'text-success'
+            : passwordStrength === 'Medium'
+            ? 'text-warning'
+            : 'text-danger'
+            "
+                >{{ passwordStrength }}
+              </ion-text>
+            </label>
+          </div>
+          <!-- Input group -->
+          <div class="position-relative">
+            <!-- Input -->
+            <input
+              name="user_password"
+              [(ngModel)]="user_password"
+              (keyup)="onChangePassword()"
+              #p="ngModel"
+              required
+              type="{{showPass ? 'text' : 'password'}}"
+              class="form-control"
+              minlength="6"
+              [ngClass]="{ 'is-invalid':!p.valid && (!p.pristine || form.submitted)}"
+            />
+
+            <!-- Icon -->
+            <i
+              (click)="showPassword()"
+              class="password-eye fa"
+              [ngClass]="{'fa-eye': !showPass, 'fa-eye-slash': showPass}"
+            ></i>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <!-- Label -->
+          <label>
+            Password Confirmation
+          </label>
+
+          <!-- Input group -->
+          <div class="position-relative">
+            <!-- Input -->
+            <input
+              name="password_confirmation"
+              [(ngModel)]="user_password_confirmation	"
+              #p2="ngModel"
+              required
+              type="{{showPass2 ? 'text' : 'password'}}"
+              class="form-control"
+              minlength="6"
+              [ngClass]="{
+                'is-invalid': (!p2.valid && (!p2.pristine || form.submitted)) || (p2.value !== p.value && (!p2.pristine || form.submitted))
+              }"
+            />
+
+            <!-- Icon -->
+            <i
+              (click)="showPassword2()"
+              class="password-eye fa"
+              [ngClass]="{'fa-eye': !showPass2, 'fa-eye-slash': showPass2}"
+            ></i>
+          </div>
+        </div>
+        <div class="form-group" *ngIf="error.length > 0">
+          <div
+            *ngFor="let e of error"
+            class="is-invalid form-control text-danger"
+            role="alert"
+          >
+            {{ e }}
+          </div>
+        </div>
+        <!-- Submit -->
+        <button
+          type="submit"
+          *ngIf="!proccessing"
+          [disabled]="!form.valid"
+          class="btn btn-lg btn-block btn-primary mb-3"
+        >
+          Sign up
+        </button>
+
+        <button
+          *ngIf="proccessing"
+          class="btn btn-lg btn-block btn-primary mb-3"
+          type="button"
+          disabled
+        >
+          <span
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+          ></span>
+          Loading...
+        </button>
+        <!-- Link -->
+        <div class="text-center">
+          <small class="text-muted text-center">
+            Already have an account?
+            <a href="javascript:;" [routerLink]="['/sign-in']">Sign In</a>.
+          </small>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- / .row -->
+</div>

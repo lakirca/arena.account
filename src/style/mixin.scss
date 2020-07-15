@@ -1,0 +1,102 @@
+$min-width: 320px;
+$max-width: 2400px;
+$min-height: 568px;
+$max-height: 1800px;
+
+$f36: 36px;
+$f30: 30px;
+$f24: 24px;
+$f22: 22px;
+$f21: 21px;
+$f18: 18px;
+$f16: 16px;
+$f15: 15px;
+$f14: 14px;
+
+@mixin hide-section($min-width, $max-width) {
+  @media (min-width: $max-width) and (max-width: $max-width) {
+    display: none !important;
+  }
+}
+
+@function font-size-lock(
+  $min-font-size,
+  $max-font-size,
+  $min-screen-width: $min-width,
+  $max-screen-width: $max-width
+) {
+  @return calc(
+    #{$min-font-size} + ((
+            #{strip-unit($max-font-size)} - #{strip-unit($min-font-size)}
+          ) * (100vw - #{$min-screen-width}) /
+          (#{strip-unit($max-screen-width)} - #{strip-unit($min-screen-width)}))
+  );
+}
+
+@function width-lock(
+  $min-current-width,
+  $max-current-width,
+  $min-screen-width: $min-width,
+  $max-screen-width: $max-width
+) {
+  @return calc(
+    #{$min-current-width} + ((
+            #{strip-unit($max-current-width)} - #{strip-unit(
+                $min-current-width
+              )}
+          ) * (100vw - #{$min-screen-width}) /
+          (#{strip-unit($max-screen-width)} - #{strip-unit($min-screen-width)}))
+  );
+}
+
+@function height-lock(
+  $min-current-height,
+  $max-current-height,
+  $min-screen-height: $min-height,
+  $max-screen-height: $max-height
+) {
+  @return calc(
+    #{$min-current-height} + ((
+            #{strip-unit($max-current-height)} - #{strip-unit(
+                $min-current-height
+              )}
+          ) * (100vh - #{$min-screen-height}) /
+          (
+            #{strip-unit($max-screen-height)} - #{strip-unit(
+                $min-screen-height
+              )}
+          ))
+  );
+}
+
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+  @return $number;
+}
+
+@mixin resp-font($min-font: 14px, $max-font: 36px) {
+  font-size: font-size-lock($min-font, $max-font);
+}
+
+@mixin resp-width($min-cur-width: 120px, $max-cur-width: 360px) {
+  width: width-lock($min-cur-width, $max-cur-width);
+}
+
+@mixin resp-height($min-cur-height: 120px, $max-cur-height: 360px) {
+  height: height-size-lock($min-cur-height, $max-cur-height);
+}
+
+@mixin transition($property: all, $duration: 0.2s, $type: linear) {
+  -moz-transition: $property $duration $type;
+  -webkit-transition: $property $duration $type;
+  transition: $property $duration $type;
+}
+
+@mixin rotate($degree) {
+  -moz-transform: rotate($degree);
+  -webkit-transform: rotate($degree);
+  transform: rotate($degree);
+  transform-origin: center center;
+}

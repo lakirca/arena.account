@@ -1,0 +1,253 @@
+<div class="header-container" (clickOutside)="clickOutside()">
+  <div class="arena-header" id="header">
+    <div class="logo-wrapper" (click)="navigate('home')">
+      <ion-img [src]="cloudUrl +'/icon/ico_arena.png'" class="logo"></ion-img>
+      <ion-img
+        *ngIf="theme === 'dusk' || theme === ''"
+        [src]="cloudUrl + '/icon/ico_logo_title_dark.png'"
+        class="logo-title"
+      ></ion-img>
+      <ion-img
+        *ngIf="theme === 'dawn'"
+        [src]="cloudUrl + '/icon/ico_logo_title.png'"
+        class="logo-title"
+      ></ion-img>
+    </div>
+
+    <div *ngIf="authService.isAuthorized" class="menu-wrapper hide-lg-lt">
+      <div class="menu-item" (click)="changeTheme()">
+        <a class="link">
+          <i class="fe fe-sunrise" *ngIf="themeService.isDuskTheme()"></i>
+          <i
+            class="fe fe-sunset text-white"
+            *ngIf="!themeService.isDuskTheme()"
+          ></i>
+        </a>
+      </div>
+      <div
+        *ngFor="let menu of menuList"
+        class="menu-item"
+        [ngClass]="{ selected: selectedMenuItem.title == menu.title }"
+        (click)="selectMenuItem(menu)"
+      >
+        <a href="javascript:;" (click)="navigate(menu.url)" class="link">
+          <i class="{{ menu.icon }}"></i>
+          <span class="menu-title">{{ menu.title }}</span>
+        </a>
+      </div>
+      <div class="menu-item">
+        <div class="navbar-user">
+          <!-- Dropdown -->
+          <div class="dropdown mr-4 d-none d-md-flex">
+            <!-- Toggle -->
+            <a
+              href="#"
+              class="navbar-user-link"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <span class="icon active">
+                <i class="fe fe-bell"></i>
+              </span>
+            </a>
+
+            <!-- Menu -->
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-card">
+              <div class="card-header">
+                <!-- Title -->
+                <h5 class="card-header-title">
+                  Notifications
+                </h5>
+
+                <!-- Link -->
+                <a href="#!" class="small">
+                  View all
+                </a>
+              </div>
+              <!-- / .card-header -->
+              <div class="card-body">
+                <!-- List group -->
+                <div
+                  class="list-group list-group-flush list-group-activity my-n3"
+                >
+                  <a class="list-group-item text-reset" href="#!">
+                    <div class="row">
+                      <div class="col-auto">
+                        <!-- Avatar -->
+                        <div class="avatar avatar-sm">
+                          <img
+                            src="./assets/img/avatars/profiles/avatar-1.jpg"
+                            alt="..."
+                            class="avatar-img rounded-circle"
+                          />
+                        </div>
+                      </div>
+                      <div class="col ml-n2">
+                        <!-- Content -->
+                        <div class="small">
+                          <strong>Dianna Smiley</strong> shared your post with
+                          Ab Hadley, Adolfo Hess, and 3 others.
+                        </div>
+
+                        <!-- Time -->
+                        <small class="text-muted">
+                          2m ago
+                        </small>
+                      </div>
+                    </div>
+                    <!-- / .row -->
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- / .dropdown-menu -->
+          </div>
+
+          <!-- Dropdown -->
+          <div class="dropdown">
+            <!-- Toggle -->
+            <a
+              href="#"
+              class="avatar avatar-sm avatar-online dropdown-toggle"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <img
+                src="./assets/img/user-placeholder.png"
+                alt="..."
+                class="avatar-img rounded-circle"
+              />
+            </a>
+
+            <!-- Menu -->
+            <div class="dropdown-menu dropdown-menu-right">
+              <a href="javascript:;" class="dropdown-item">Settings</a>
+              <hr class="dropdown-divider" />
+              <a href="javascript:;" (click)="signOut()" class="dropdown-item"
+                >Logout</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!authService.isAuthorized" class="menu-wrapper hide-lg-lt">
+      <div class="menu-item" (click)="changeTheme()">
+        <a class="link">
+          <i class="fe fe-sunrise" *ngIf="themeService.isDuskTheme()"></i>
+          <i
+            class="fe fe-sunset text-white"
+            *ngIf="!themeService.isDuskTheme()"
+          ></i>
+        </a>
+      </div>
+      <div
+        *ngFor="let menu of notAuthMenuList"
+        class="menu-item"
+        [ngClass]="{ selected: selectedMenuItem.title == menu.title }"
+        (click)="selectMenuItem(menu)"
+      >
+        <a href="javascript:;" [routerLink]="[menu.url]" class="link">
+          <i class="{{ menu.icon }}"></i>
+          <span class="menu-title">{{ menu.title }}</span>
+        </a>
+      </div>
+    </div>
+    <div class="menu-bar hide-md-gt">
+      <div class="menu-item mr-3" (click)="changeTheme()">
+        <a class="link">
+          <i class="fe fe-sunrise" *ngIf="themeService.isDuskTheme()"></i>
+          <i
+            class="fe fe-sunset text-white"
+            *ngIf="!themeService.isDuskTheme()"
+          ></i>
+        </a>
+      </div>
+
+      <i class="fa fa-bars" (click)="expandMenu()"></i>
+    </div>
+  </div>
+  <ion-grid
+    *ngIf="authService.isAuthorized"
+    class="side-menu hide-md-gt"
+    [ngClass]="{ expand: headerFacade.getExpand$() | async }"
+  >
+    <ion-row>
+      <ion-col size="12" *ngFor="let menu of menuList">
+        <div
+          class="menu-item"
+          (click)="selectMenuItem(menu)"
+          [ngClass]="{
+            selected: selectedMenuItem.title == menu.title && isExpand
+          }"
+        >
+          <a
+            class="link"
+            [ngClass]="{
+              selected: selectedMenuItem.title == menu.title && isExpand
+            }"
+          >
+            <i class="{{ menu.icon }}"></i>
+            <span class="menu-title">{{ menu.title }}</span>
+          </a>
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        <div class="menu-item">
+          <a [routerLink]="['/notifications']" class="link">
+            <i class="fa fa-bell"></i>
+            <span class="menu-title">Notifications</span>
+          </a>
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        <div class="menu-item">
+          <a [routerLink]="['/settings']" class="link">
+            <i class="fa fa-cogs"></i>
+            <span class="menu-title">Settings</span>
+          </a>
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        <div class="menu-item border-top">
+          <a (click)="signOut()" class="link">
+            <i class="fas fa-sign-out"></i>
+            <span class="menu-title">Sign Out</span>
+          </a>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid
+    *ngIf="!authService.isAuthorized"
+    class="side-menu hide-md-gt"
+    [ngClass]="{ expand: headerFacade.getExpand$() | async }"
+  >
+    <ion-row>
+      <ion-col size="12" *ngFor="let menu of notAuthMenuList">
+        <div
+          class="menu-item"
+          (click)="selectMenuItem(menu)"
+          [ngClass]="{
+            selected: selectedMenuItem.title == menu.title && isExpand
+          }"
+        >
+          <a
+            class="link"
+            [ngClass]="{
+              selected: selectedMenuItem.title == menu.title && isExpand
+            }"
+          >
+            <i class="{{ menu.icon }}"></i>
+            <span class="menu-title">{{ menu.title }}</span>
+          </a>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

@@ -1,0 +1,461 @@
+<ion-content>
+  <div class="main-content mt-6 p-0 p-sm-2 p-md-4">
+    <div class="container-fluid">
+      <!-- Body -->
+      <div class="header-body">
+        <div class="row align-items-center">
+          <div class="col">
+            <!-- Nav -->
+            <ul class="nav nav-tabs nav-overflow header-tabs">
+              <li class="nav-item">
+                <a data-toggle="tab" href="#Cards" class="nav-link active">
+                  Cards
+                </a>
+              </li>
+              <li class="nav-item">
+                <a data-toggle="tab" href="#Transactions" class="nav-link">
+                  Transactions
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- / .header-body -->
+    </div>
+
+    <!-- CONTENT -->
+
+    <div class="container-fluid">
+      <div class="tab-content w-100">
+        <!-- Cards -->
+        <div class="tab-pane fade show active" id="Cards">
+          <div class="container-fluid mt-4">
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <!-- Card -->
+                <div class="row">
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-12 mb-4">
+                        <h2 class="text-muted border-bottom pb-3">
+                          Bank Account
+                        </h2>
+                      </div>
+                    </div>
+
+                    <form
+                      #form="ngForm"
+                      class="row"
+                      (ngSubmit)="onBankSubmit(form)"
+                    >
+                      <!-- Input Group -->
+                      <input
+                        type="hidden"
+                        name="bank_uuid"
+                        [(ngModel)]="bank.bank_uuid"
+                      />
+                      <div class="form-group col-12 col-lg-6">
+                        <label
+                          id="bankName"
+                          class="h6 small d-block text-uppercase mb-2"
+                        >
+                          Bank Name
+                          <span class="text-danger">*</span>
+                        </label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="bank_name"
+                          required
+                          [(ngModel)]="bank.bank_name"
+                          name="bank_name"
+                          #bank_name="ngModel"
+                          [ngClass]="{'border-danger': !bank_name.valid && (!bank_name.pristine || form.submitted)}"
+                        />
+                      </div>
+                      <!-- End Input Group -->
+
+                      <!-- Input Group -->
+                      <div class="form-group col-12 col-lg-6">
+                        <label
+                          id="accountNumber"
+                          class="h6 small d-block text-uppercase mb-2"
+                        >
+                          Account number
+                          <span class="text-danger">*</span>
+                        </label>
+
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="account_number"
+                          required
+                          [(ngModel)]="bank.account_number"
+                          name="account_number"
+                          #account_number="ngModel"
+                          [ngClass]="{'border-danger': !account_number.valid && (!account_number.pristine || form.submitted)}"
+                        />
+                      </div>
+                      <!-- End Input Group -->
+
+                      <!-- Input Group -->
+                      <div class="form-group col-12 col-lg-6">
+                        <label
+                          id="acountType"
+                          class="h6 small d-block text-uppercase mb-2"
+                        >
+                          Account Type
+                          <span class="text-danger">*</span>
+                        </label>
+
+                        <select
+                          name="account_type"
+                          required
+                          [(ngModel)]="bank.account_type"
+                          name="account_type"
+                          #account_type="ngModel"
+                          [ngClass]="{'border-danger': !account_type.valid && (!account_type.pristine || form.submitted)}"
+                          class="form-control form-control-select"
+                        >
+                          <option value="Saving">Saving</option>
+                          <option value="Checking">Checking</option>
+                        </select>
+                      </div>
+                      <!-- End Input Group -->
+
+                      <!-- Input Group -->
+                      <div class="form-group col-12 col-lg-6">
+                        <label
+                          id="routingNumber"
+                          class="h6 small d-block text-uppercase mb-2"
+                        >
+                          Routing number
+                          <span class="text-danger">*</span>
+                        </label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="routing_number"
+                          required
+                          [pattern]="pattern"
+                          [(ngModel)]="bank.routing_number"
+                          name="routing_number"
+                          #routing_number="ngModel"
+                          [ngClass]="{'border-danger': !routing_number.valid && (!routing_number.pristine || form.submitted)}"
+                        />
+                      </div>
+
+                      <!-- Input Group -->
+                      <div class="form-group col-12 col-lg-6">
+                        <div class="custom-control custom-switch">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            [(ngModel)]="bank.flag_primary"
+                            name="flag_primary"
+                            id="isAddress"
+                          />
+                          <label class="custom-control-label" for="isAddress">
+                            Set As Primary
+                          </label>
+                        </div>
+                      </div>
+                      <div class="form-group col-12 col-lg-6 text-right">
+                        <div type="button" class="btn btn-outline-light">
+                          <span class="fe fe-refresh-ccw"></span> Reset
+                        </div>
+                        <button
+                          type="submit"
+                          class="ml-4 btn btn-outline-primary"
+                        >
+                          <span class="fe fe-save"></span> Save
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col-12 mt-4">
+                    <hr class="my-4" />
+
+                    <div class="card">
+                      <div class="card-header">
+                        <!-- Title -->
+                        <h4 class="card-header-title">
+                          Bank Accounts
+                        </h4>
+                      </div>
+                      <div class="card-body">
+                        <!-- List -->
+                        <ul
+                          class="list-group list-group-lg list-group-flush list my-n4"
+                          *ngIf="(banks$ | async).length > 0; else tableLoading"
+                        >
+                          <li
+                            class="list-group-item"
+                            *ngFor="let item of banks$ | async"
+                          >
+                            <div class="row align-items-center">
+                              <div class="col-auto d-none d-sm-inline-block">
+                                <!-- Avatar -->
+                                <a href="javascript:;" class="avatar avatar-lg">
+                                  <img
+                                    src="assets/img/ba.png"
+                                    alt="..."
+                                    class="avatar-img"
+                                  />
+                                </a>
+                              </div>
+                              <div class="col p-1 pt-3">
+                                <!-- Title -->
+                                <h5 class="mb-1">
+                                  <a href="javascript:;">Card Number</a>
+                                </h5>
+
+                                <p class="text-muted">
+                                  {{ item.account_number }}
+                                </p>
+                              </div>
+                              <div
+                                class="col p-1 pt-3 d-none d-xl-inline-block"
+                              >
+                                <h5 class="mb-1">
+                                  <a href="javascript:;">Routing Number</a>
+                                </h5>
+
+                                <p class="text-muted">
+                                  {{ item.routing_number }}
+                                </p>
+                              </div>
+                              <div class="col p-1 pt-3">
+                                <!-- Title -->
+                                <h5 class="mb-1">
+                                  <a href="javascript:;">Type</a>
+                                </h5>
+
+                                <!-- Text -->
+                                <p class="text-muted">
+                                  {{ item.account_type }}
+                                </p>
+                              </div>
+                              <div class="col-auto p-0 pl-2">
+                                <!-- Dropdown -->
+                                <div class="dropdown">
+                                  <a
+                                    href="#"
+                                    class="dropdown-ellipses dropdown-toggle"
+                                    role="button"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    data-expanded="false"
+                                  >
+                                    <i class="fe fe-more-vertical"></i>
+                                  </a>
+                                  <div
+                                    class="dropdown-menu dropdown-menu-right"
+                                  >
+                                    <a
+                                      data-toggle="modal"
+                                      href="javascript:;"
+                                    ></a>
+                                    <a
+                                      href="javascript:;"
+                                      class="dropdown-item"
+                                    >
+                                      Edit
+                                    </a>
+                                    <a
+                                      href="javascript:;"
+                                      class="dropdown-item text-danger"
+                                    >
+                                      Remove
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- / .row -->
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-12 mb-4">
+                        <h2 class="text-muted border-bottom pb-3">
+                          PayPal Account
+                        </h2>
+                      </div>
+                    </div>
+                    <form
+                      #payPalForm="ngForm"
+                      class="row"
+                      (ngSubmit)="onPayPalSubmit(payPalForm)"
+                    >
+                      <div class="form-group col-12 col-lg-6 p-0">
+                        <input
+                          type="hidden"
+                          name="paypal"
+                          [(ngModel)]="paypal.paypal_uuid"
+                        />
+                        <label for="paypal_email"
+                          >PayPal Email
+                          <span class="text-danger">*</span>
+                        </label>
+                        <input
+                          type="email"
+                          pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{1,}[.]{1}[a-zA-Z]{2,}"
+                          class="form-control"
+                          name="paypal_email"
+                          required
+                          #paypal_email="ngModel"
+                          [(ngModel)]="paypal.paypal"
+                          [ngClass]="{'border-danger': !paypal_email.valid && (!paypal_email.pristine || payPalForm.submitted)}"
+                        />
+                      </div>
+                      <div
+                        class="form-group col-12 col-lg-6 p-0 mt-lg-5 text-right"
+                      >
+                        <div class="custom-control custom-switch">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            name="flag_primary"
+                            [(ngModel)]="paypal.flag_primary"
+                            id="flag_primary"
+                          />
+                          <label class="custom-control-label" for="flag_primary"
+                            >Set As Primary</label
+                          >
+                        </div>
+                      </div>
+
+                      <div class="form-group col-12 text-right">
+                        <div type="button" class="btn btn-outline-light">
+                          <span class="fe fe-refresh-ccw"></span> Reset
+                        </div>
+                        <button
+                          type="submit"
+                          class="ml-4 btn btn-outline-primary"
+                        >
+                          <span class="fe fe-save"></span> Save
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+
+                  <div class="col-12">
+                    <hr class="my-4" />
+                    <div class="card">
+                      <div class="card-header">
+                        <!-- Title -->
+                        <h4 class="card-header-title">
+                          PayPal Accounts
+                        </h4>
+                      </div>
+                      <div class="card-body">
+                        <!-- List -->
+                        <ul
+                          class="list-group list-group-lg list-group-flush list my-n4"
+                          *ngIf="(payPals$ | async).length > 0; else tableLoading"
+                        >
+                          <li
+                            class="list-group-item"
+                            *ngFor="let item of payPals$ | async"
+                          >
+                            <div class="row align-items-center">
+                              <div class="col-auto d-none d-sm-inline-block">
+                                <!-- Avatar -->
+                                <a href="javascript:;" class="avatar avatar-lg">
+                                  <img
+                                    src="assets/img/pp.png"
+                                    alt="..."
+                                    class="avatar-img"
+                                  />
+                                </a>
+                              </div>
+                              <div class="col p-1 pt-3">
+                                <!-- Title -->
+                                <h5 class="mb-1">
+                                  <a href="javascript:;">Email</a>
+                                </h5>
+
+                                <p class="text-muted">
+                                  {{ item.paypal }}
+                                </p>
+                              </div>
+                              <div class="col-auto p-0 pl-2">
+                                <!-- Dropdown -->
+                                <div class="dropdown">
+                                  <a
+                                    href="#"
+                                    class="dropdown-ellipses dropdown-toggle"
+                                    role="button"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    data-expanded="false"
+                                  >
+                                    <i class="fe fe-more-vertical"></i>
+                                  </a>
+                                  <div
+                                    class="dropdown-menu dropdown-menu-right"
+                                  >
+                                    <a
+                                      data-toggle="modal"
+                                      href="javascript:;"
+                                    ></a>
+                                    <a
+                                      href="javascript:;"
+                                      class="dropdown-item"
+                                    >
+                                      Edit
+                                    </a>
+                                    <a
+                                      href="javascript:;"
+                                      class="dropdown-item text-danger"
+                                    >
+                                      Remove
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- / .row -->
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ng-template #loading>
+  <app-loader [@enterAnimation]></app-loader>
+</ng-template>
+
+<ng-template #tableLoading>
+  <div class="loading-spinner p-3">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div></ng-template
+>
+
+<ng-template #loading2>
+  <div class="loading-spinner">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div></ng-template
+>

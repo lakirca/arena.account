@@ -1,0 +1,59 @@
+@import "../style/mixin.scss";
+
+.hide-xs {
+  @include hide-section(0px, 299px);
+}
+
+.hide-vs {
+  @include hide-section(300px, 499px);
+}
+
+.hide-sm {
+  @include hide-section(500px, 749px);
+}
+
+.hide-md {
+  @include hide-section(750px, 999px);
+}
+
+.hide-lg {
+  @include hide-section(1000px, 1299px);
+}
+
+.hide-vl {
+  @include hide-section(1300px, 1599px);
+}
+
+.hide-xl {
+  @media (min-width: 1600px) {
+    display: none !important;
+  }
+}
+
+.hide-lg-lt {
+  @media screen and (max-width: 999px){
+    display: none !important;
+  }
+}
+
+.hide-vl-lt {
+  @media screen and (max-width: 1300px){
+    display: none !important;
+  }
+}
+
+.hide-md-gt {
+  @media (min-width: 1000px) {
+    display: none !important;
+  }
+}
+.hide-lg-gt {
+  @media (min-width: 1299px) {
+    display: none !important;
+  }
+}
+.hide-vl-gt {
+  @media (min-width: 1599px) {
+    display: none !important;
+  }
+}

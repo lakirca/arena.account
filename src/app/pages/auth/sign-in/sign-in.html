@@ -1,0 +1,121 @@
+<div class="container m-auto overflow-auto">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-5 col-xl-4 my-5">
+      <!-- Heading -->
+      <h1 class="display-4 text-center mb-3">
+        Sign in
+      </h1>
+
+      <!-- Subheading -->
+      <p class="text-muted text-center mb-5">
+        Free access to our dashboard.
+      </p>
+
+      <!-- Form -->
+      <form #form="ngForm" (ngSubmit)="signIn(form)">
+        <div class="form-group error-alert">
+          <div *ngIf="error" class="border border-danger text-danger p-3">
+            An error occured. <br />
+            Please check your inputs.
+          </div>
+        </div>
+        <!-- Email address -->
+        <div class="form-group">
+          <!-- Label -->
+          <label>Email Address</label>
+
+          <!-- Input -->
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            name="email"
+            [disabled]="proccessing"
+            required
+            [(ngModel)]="email"
+            placeholder="Username or Email"
+            #emailModel="ngModel"
+            [ngClass]="{'is-invalid': !emailModel.pristine && !emailModel.valid}"
+          />
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <div class="row">
+            <div class="col">
+              <!-- Label -->
+              <label>Password</label>
+            </div>
+            <div class="col-auto">
+              <!-- Help text -->
+              <a
+                href="javascript:;"
+                [routerLink]="['/forgot-password']"
+                class="form-text small text-muted"
+              >
+                Forgot password?
+              </a>
+            </div>
+          </div>
+          <!-- / .row -->
+
+          <!-- Form group -->
+          <div class="form-group position-relative">
+            <!-- Input -->
+            <input
+              name="password"
+              [(ngModel)]="password"
+              #passwordModel="ngModel"
+              [disabled]="proccessing"
+              required
+              type="{{showPass ? 'text' : 'password'}}"
+              class="form-control"
+              minlength="6"
+              placeholder="Password"
+              [ngClass]="{ 'is-invalid':!passwordModel.pristine && !passwordModel.valid}"
+            />
+
+            <!-- Icon -->
+            <i
+              (click)="showPassword()"
+              class="password-eye fa"
+              [ngClass]="{'fa-eye': !showPass, 'fa-eye-slash': showPass}"
+            ></i>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <button
+          *ngIf="!proccessing"
+          type="submit"
+          class="btn btn-lg btn-block btn-primary mb-3"
+        >
+          Sign in
+        </button>
+
+        <button
+          *ngIf="proccessing"
+          class="btn btn-lg btn-block btn-primary mb-3"
+          type="button"
+          disabled
+        >
+          <span
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+          ></span>
+          Loading...
+        </button>
+
+        <!-- Link -->
+        <div class="text-center">
+          <small class="text-muted text-center">
+            Don't have an account yet?
+            <a href="javascript:;" [routerLink]="['/sign-up']">Sign up</a>.
+          </small>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- / .row -->
+</div>

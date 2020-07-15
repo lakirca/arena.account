@@ -1,0 +1,1467 @@
+<ion-content>
+  <div
+    *ngIf="(profile$ | async); else load"
+    class="main-content mt-6 p-0 p-sm-2 p-md-4"
+    [@enterAnimation]
+  >
+    <!-- HEADER -->
+    <div class="header">
+      <div class="container-fluid">
+        <!-- Body -->
+        <div class="header-body">
+          <div class="row align-items-end">
+            <div class="col-12">
+              <!-- Avatar -->
+              <div class="avatar avatar-xxl header-avatar-top">
+                <img
+                  *ngIf="false"
+                  [src]="cloudUrl + '/' + (profile$ | async)?.avatar"
+                  class="avatar-img rounded-circle border-2 border-body"
+                />
+                <img
+                  src="assets/img/user-placeholder.png"
+                  alt="..."
+                  class="avatar-img rounded-circle border-2 border-body"
+                />
+              </div>
+            </div>
+            <div class="col-12 my-3">
+              <!-- Title -->
+              <h1 *ngIf="!loading; else loading2" class="header-title">
+                {{ (profile$ | async)?.name }}
+              </h1>
+            </div>
+          </div>
+          <!-- / .row -->
+          <div class="row align-items-center">
+            <div class="col">
+              <!-- Nav -->
+              <ul class="nav nav-tabs nav-overflow header-tabs">
+                <li class="nav-item">
+                  <a data-toggle="tab" href="#General" class="nav-link active">
+                    General
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a data-toggle="tab" href="#Profile" class="nav-link">
+                    Profile
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a data-toggle="tab" href="#Address" class="nav-link">
+                    Address
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a data-toggle="tab" href="#Contact" class="nav-link">
+                    Contact
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- / .header-body -->
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+
+    <div class="container-fluid">
+      <div class="tab-content w-100">
+        <!-- General -->
+        <div class="tab-pane fade show active" id="General">
+          <div class="row">
+            <div class="col-12 col-xl-8">
+              <div class="row">
+                <div class="col-12 col-lg-6 col-xl">
+                  <!-- Value  -->
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col">
+                          <!-- Title -->
+                          <h6 class="text-uppercase text-muted mb-2">
+                            First Name
+                          </h6>
+
+                          <!-- Heading -->
+                          <span class="h3 mb-0">
+                            {{ (profile$ | async)?.name_first }}
+                          </span>
+                        </div>
+                      </div>
+                      <!-- / .row -->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-6 col-xl">
+                  <!-- Value  -->
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col">
+                          <!-- Title -->
+                          <h6 class="text-uppercase text-muted mb-2">
+                            Middle Name
+                          </h6>
+
+                          <!-- Heading -->
+                          <span class="h3 mb-0">
+                            {{ (profile$ | async)?.name_middle ? (profile$ |
+                            async).name_middle : '-'}}
+                          </span>
+                        </div>
+                      </div>
+                      <!-- / .row -->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-6 col-xl">
+                  <!-- Value  -->
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col">
+                          <!-- Title -->
+                          <h6 class="text-uppercase text-muted mb-2">
+                            Last Name
+                          </h6>
+
+                          <!-- Heading -->
+                          <span class="h3 mb-0">
+                            {{ (profile$ | async)?.name_last }}
+                          </span>
+                        </div>
+                      </div>
+                      <!-- / .row -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <div class="col-12 col-lg-6">
+                  <div class="list-group-item">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <!-- Title -->
+                        <h6 class="text-uppercase text-muted mb-2">
+                          Email
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <!-- Time -->
+                        <span class="h3 mb-0">
+                          {{ (profile$ | async)?.email }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- / .row -->
+                </div>
+                <div class="col-12 col-lg-6">
+                  <div class="list-group-item">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <!-- Title -->
+                        <h6 class="text-uppercase text-muted mb-2">
+                          Alias
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <!-- Time -->
+                        <span class="h3 mb-0">
+                          {{ (profile$ | async)?.alias }}
+                        </span>
+                      </div>
+                    </div>
+                    <!-- / .row -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <div class="col-12 col-lg-6">
+                  <div class="list-group-item p-4">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <!-- Title -->
+                        <h6 class="text-uppercase text-muted mb-2">
+                          Address
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <!-- Time -->
+                        <span class="h3 mb-0">
+                          {{ (profile$ | async)?.postal.postal_street }}, {{
+                          (profile$ | async)?.postal.postal_city }}<br />
+                          {{ (profile$ | async)?.postal.postal_zipcode }}, {{
+                          (profile$ | async)?.postal.postal_country }}
+                        </span>
+                      </div>
+                    </div>
+                    <!-- / .row -->
+                  </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-auto">
+                          <!-- Avatar -->
+                          <a href="javascript:;" class="avatar avatar-4by3">
+                            <img
+                              src="assets/img/ba.png"
+                              alt="..."
+                              class="avatar-img rounded"
+                            />
+                          </a>
+                        </div>
+                        <div class="col ml-n2">
+                          <!-- Title -->
+                          <h4 class="mb-1">
+                            <a href="javascript:;">Card Number</a>
+                          </h4>
+
+                          <!-- Text -->
+                          <span class="h3 mb-0">
+                            {{ (profile$ | async )?.bank.account_number }}
+                          </span>
+                        </div>
+                        <div class="col-auto">
+                          <h4 class="mb-1">Routing Number</h4>
+
+                          <span class="h3 mb-0">
+                            {{ (profile$ | async )?.bank.routing_number }}
+                          </span>
+                        </div>
+                      </div>
+                      <!-- / .row -->
+                    </div>
+                    <!-- / .card-body -->
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <div class="col-12 col-lg-6 col-xl-6">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="header-tite">
+                        Soundblock
+                      </h3>
+                    </div>
+                    <div class="card-body">
+                      <!-- List group -->
+                      <div class="list-group list-group-flush my-n3">
+                        <div class="list-group-item">
+                          <div class="row align-items-center">
+                            <div class="col">
+                              <!-- Title -->
+                              <h5 class="mb-0">
+                                Services
+                              </h5>
+                            </div>
+                            <div class="col-auto">
+                              <!-- Time -->
+                              <time class="small text-muted">
+                                {{ serviceCount }}
+                              </time>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- / .row -->
+                        <div class="list-group-item">
+                          <div class="row align-items-center">
+                            <div class="col">
+                              <!-- Title -->
+                              <h5 class="mb-0">
+                                Projects
+                              </h5>
+                            </div>
+                            <div class="col-auto">
+                              <!-- Link -->
+                              <time class="small text-muted">
+                                {{ projectCount }}
+                              </time>
+                            </div>
+                          </div>
+                          <!-- / .row -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-xl-4">
+              <!-- Card -->
+              <div class="card">
+                <div class="card-body">
+                  <!-- List group -->
+                  <div class="list-group list-group-flush my-n3">
+                    <div class="list-group-item">
+                      <div class="row align-items-center">
+                        <div class="col">
+                          <!-- Title -->
+                          <h6 class="text-uppercase text-muted mb-2">
+                            Last Active
+                          </h6>
+                        </div>
+                        <div class="col-auto">
+                          <!-- Time -->
+                          <span
+                            *ngIf="(profile$ | async )?.stamp_updated"
+                            class="h3 mb-0"
+                          >
+                            {{ (profile$ | async )?.stamp_updated * 1000 |
+                            timeago }}
+                          </span>
+                        </div>
+                      </div>
+                      <!-- / .row -->
+                    </div>
+                    <div class="list-group-item">
+                      <div class="row align-items-center">
+                        <div class="col">
+                          <!-- Title -->
+                          <h6 class="text-uppercase text-muted mb-2">
+                            Joined
+                          </h6>
+                        </div>
+                        <div class="col-auto">
+                          <!-- Time -->
+                          <span class="h3 mb-0" datetime="2018-10-28">
+                            {{ (profile$ | async )?.stamp_created * 1000 | date
+                            }}
+                          </span>
+                        </div>
+                      </div>
+                      <!-- / .row -->
+                    </div>
+                    <div class="list-group-item">
+                      <div class="row align-items-center">
+                        <div class="col">
+                          <!-- Title -->
+                          <h6 class="text-uppercase text-muted mb-2">
+                            Location
+                          </h6>
+                        </div>
+                        <div class="col-auto">
+                          <!-- Text -->
+                          <small class="text-muted">
+                            Bor, Serbia
+                          </small>
+                        </div>
+                      </div>
+                      <!-- / .row -->
+                    </div>
+
+                    <div class="list-group-item">
+                      <div class="row align-items-center">
+                        <div class="col">
+                          <!-- Title -->
+                          <h6 class="text-uppercase text-muted mb-2">
+                            Phone Number
+                          </h6>
+                        </div>
+                        <div class="col-auto">
+                          <!-- Text -->
+                          <small class="text-muted">
+                            +381661312412
+                          </small>
+                        </div>
+                      </div>
+                      <!-- / .row -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Latest Address -->
+              <div class="card">
+                <div class="card-header">
+                  <!-- Title -->
+                  <h4 class="card-header-title">
+                    Notification Timeline
+                  </h4>
+
+                  <!-- Button -->
+                  <a class="small" href="javascript:;">View all</a>
+                </div>
+                <div class="card-body">
+                  <!-- List group -->
+                  <div
+                    class="list-group list-group-flush list-group-activity my-n3"
+                  >
+                    <div
+                      class="list-group-item"
+                      *ngFor="let item of notifications$ | async | slice: 0:4"
+                    >
+                      <div class="row">
+                        <div class="col-auto">
+                          <!-- Avatar -->
+                          <div class="avatar avatar-sm">
+                            <div
+                              class="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"
+                            >
+                              <i class="fe fe-mail"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col ml-n2">
+                          <!-- Heading -->
+                          <h6 class="mb-1">
+                            {{ item.notification_name }}
+                          </h6>
+
+                          <!-- Text -->
+                          <p class="small text-gray-700 mb-0">
+                            {{ item.notification_memo }}
+                          </p>
+
+                          <!-- Time -->
+                          <small class="text-muted" *ngIf="item.stamp_created">
+                            {{ item.stamp_created * 1000 | timeago }}
+                          </small>
+                        </div>
+                      </div>
+                      <!-- / .row -->
+                    </div>
+                    <div
+                      *ngIf="(notifications$ | async)?.length === 0 "
+                      class="row"
+                    >
+                      <div class="col-12">
+                        Notifications box is empty.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- General End -->
+
+        <!-- Address -->
+        <div class="tab-pane fade" id="Address">
+          <div class="row">
+            <div class="col-12 col-lg-6">
+              <div class="card" data-toggle="lists">
+                <div class="card-header">
+                  <!-- Form -->
+                  <form>
+                    <div class="input-group input-group-flush">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fe fe-search"></i>
+                        </span>
+                      </div>
+                      <input
+                        class="form-control search"
+                        type="search"
+                        name="addressText"
+                        [(ngModel)]="addressText"
+                        placeholder="Search"
+                      />
+                    </div>
+                  </form>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-sm table-nowrap card-table">
+                    <thead>
+                      <tr>
+                        <th>
+                          <a href="javascript:;" class="text-muted sort">
+                            Address
+                          </a>
+                        </th>
+                        <th>
+                          <a href="javascript:;" class="text-muted">
+                            Type
+                          </a>
+                        </th>
+                        <th colspan="4"></th>
+                      </tr>
+                    </thead>
+                    <tbody
+                      class="list"
+                      *ngIf="addressConfig && !loadPostals; else tableLoading"
+                    >
+                      <tr
+                        *ngFor="let item of (profile$ | async )?.postals | paginate: addressConfig  | filter: addressText"
+                      >
+                        <td class="position-relative ws-pre">
+                          <span
+                            *ngIf="item.flag_primary"
+                            class="fe fe-star text-warning primary-star"
+                          ></span>
+                          {{ item.postal_street }} {{ item.postal_city }} {{
+                          item.postal_country }}
+                        </td>
+                        <td>
+                          <span
+                            *ngIf="item.postal_type.toLowerCase() === 'home'"
+                            class="badge badge-soft-primary"
+                            >Home</span
+                          >
+                          <span
+                            *ngIf="item.postal_type.toLowerCase() === 'office'"
+                            class="badge badge-soft-success"
+                            >Office</span
+                          >
+                          <span
+                            *ngIf="item.postal_type.toLowerCase() === 'billing'"
+                            class="badge badge-soft-info"
+                            >Billing</span
+                          >
+                          <span
+                            *ngIf="item.postal_type.toLowerCase() === 'other'"
+                            class="badge badge-soft-dark"
+                            >Other</span
+                          >
+                        </td>
+                        <td class="text-center">
+                          <button
+                            type="button"
+                            (click)="editAddress(item)"
+                            class="btn btn-sm btn-outline-light"
+                          >
+                            <span class="fe fe-edit"></span>
+                          </button>
+                          <button
+                            type="button"
+                            *ngIf="item.flag_primary !== 1"
+                            (click)="setAsPrimaryAddress(item)"
+                            class="btn btn-sm btn-outline-info ml-3"
+                          >
+                            <span class="fe fe-star"></span>
+                          </button>
+
+                          <button
+                            type="button"
+                            *ngIf="item.flag_primary !== 1"
+                            (click)="removeAddress(item)"
+                            class="btn btn-sm btn-outline-danger ml-3"
+                          >
+                            <span class="fe fe-trash-2"></span>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <pagination-controls
+                  id="addressPagination"
+                  *ngIf="addressConfig"
+                  (pageChange)="pageChanged($event)"
+                ></pagination-controls>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <form
+                #addressForm="ngForm"
+                (ngSubmit)="onAddressSave(addressForm)"
+                class="row"
+              >
+                <input
+                  type="hidden"
+                  name="postal_uuid"
+                  [(ngModel)]="address.postal_uuid"
+                />
+                <div class="col-12 col-lg-6">
+                  <!-- Address -->
+                  <div class="form-group">
+                    <!-- Label -->
+                    <label>
+                      Type
+                    </label>
+
+                    <!-- Input -->
+                    <select
+                      class="form-control form-control-select"
+                      required
+                      [(ngModel)]="address.postal_type"
+                      name="postal_type"
+                      #postal_type="ngModel"
+                      [ngClass]="{'border-danger': !postal_type.valid && (!postal_type.pristine || addressForm.submitted)}"
+                    >
+                      <option value="Home">Home</option>
+                      <option value="Office">Office</option>
+                      <option value="Billing">Billing</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                  <!-- Email address -->
+                  <div class="form-group">
+                    <!-- Input -->
+                    <label for="postal_street">Street</label>
+                    <input
+                      type="text"
+                      name="postal_street"
+                      [(ngModel)]="address.postal_street"
+                      required
+                      #postal_street="ngModel"
+                      [ngClass]="{'border-danger': !postal_street.valid && (!postal_street.pristine || addressForm.submitted)}"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                  <!-- Email address -->
+                  <div class="form-group">
+                    <!-- Input -->
+                    <label for="postal_city">City</label>
+                    <input
+                      type="text"
+                      name="postal_city"
+                      [(ngModel)]="address.postal_city"
+                      required
+                      #postal_city="ngModel"
+                      [ngClass]="{'border-danger': !postal_city.valid && (!postal_city.pristine || addressForm.submitted)}"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                  <!-- Email address -->
+                  <div class="form-group">
+                    <!-- Input -->
+                    <label for="postal_country">Country</label>
+                    <input
+                      type="text"
+                      name="postal_country"
+                      [(ngModel)]="address.postal_country"
+                      required
+                      #postal_country="ngModel"
+                      [ngClass]="{'border-danger': !postal_country.valid && (!postal_country.pristine || addressForm.submitted)}"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                  <!-- Email address -->
+                  <div class="form-group">
+                    <!-- Input -->
+                    <label for="postal_zipcode">Zip Code</label>
+
+                    <input
+                      type="text"
+                      name="postal_zipcode"
+                      [(ngModel)]="address.postal_zipcode"
+                      required
+                      #postal_zipcode="ngModel"
+                      [ngClass]="{'border-danger': !postal_zipcode.valid && (!postal_zipcode.pristine || addressForm.submitted)}"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-12 col-lg-6 text-right">
+                  <div class="form-group mb-0">
+                    <div class="custom-control custom-switch pb-3 mt-5 pt-2">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        name="flag_primary"
+                        [(ngModel)]="address.flag_primary"
+                        id="primary"
+                      />
+                      <label class="custom-control-label" for="primary"
+                        >Flag Primary</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 text-right">
+                  <hr class="mb-4 mt-0" />
+
+                  <div
+                    (click)="resetAddress(addressForm)"
+                    class="btn btn-outline-light"
+                  >
+                    <span class="fe fe-refresh-ccw"></span> Reset
+                  </div>
+                  <button type="submit" class="ml-4 btn btn-outline-primary">
+                    <span class="fe fe-save"></span> Save
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- Address End -->
+
+        <!-- Profile -->
+        <div class="tab-pane fade" id="Profile">
+          <div class="row">
+            <div class="col-12 col-md-6 col-lg-8 col-xl-9">
+              <form
+                #nameForm="ngForm"
+                (ngSubmit)="updateName(nameForm)"
+                class="row"
+              >
+                <div class="col-12 mb-4">
+                  <h2 class="header-title">
+                    User Info
+                  </h2>
+                </div>
+                <div class="col-12 col-md-4">
+                  <!-- First name -->
+                  <div class="form-group">
+                    <!-- Label -->
+                    <label>
+                      First name
+                    </label>
+
+                    <!-- Input -->
+                    <input
+                      type="text"
+                      required
+                      [(ngModel)]="user.name_first"
+                      name="name_first"
+                      class="form-control"
+                      #first="ngModel"
+                      [ngClass]="{'border-danger': !first.valid && (!first.pristine || nameForm.submitted)}"
+                    />
+                  </div>
+                </div>
+                <div class="col-12 col-md-4">
+                  <!-- Last name -->
+                  <div class="form-group">
+                    <!-- Label -->
+                    <label>
+                      Last name
+                    </label>
+
+                    <!-- Input -->
+                    <input
+                      type="text"
+                      required
+                      [(ngModel)]="user.name_last"
+                      #last="ngModel"
+                      [ngClass]="{'border-danger': !last.valid && (!last.pristine || nameForm.submitted)}"
+                      name="name_last"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+                <div class="col-12 col-md-4">
+                  <!-- Middle name -->
+                  <div class="form-group">
+                    <!-- Label -->
+                    <label>
+                      Middle name
+                    </label>
+
+                    <!-- Input -->
+                    <input
+                      type="text"
+                      [(ngModel)]="user.name_middle"
+                      name="name_middle"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-12 pt-2 text-right">
+                  <button
+                    type="button"
+                    (click)="resetUserForm(nameForm)"
+                    class="mr-4 btn btn-outline-light"
+                  >
+                    <span class="fe fe-rotate-ccw"></span> Reset
+                  </button>
+                  <button type="submit" class="btn btn-outline-primary">
+                    <span class="fe fe-save"></span> Save
+                  </button>
+                </div>
+              </form>
+
+              <div class="row mt-4">
+                <form
+                  #securityForm="ngForm"
+                  (ngSubmit)="securityUpdate(securityForm)"
+                  class="col-12"
+                >
+                  <div class="row">
+                    <div class="col-12 mb-4">
+                      <h2 class="header-title">
+                        Password Settings
+                      </h2>
+                    </div>
+
+                    <div class="col-12 col-lg-7">
+                      <div class="col-12 mb-2">
+                        <!-- Password -->
+                        <label>Old Password</label>
+                        <div
+                          [ngClass]="{'border-danger': !oldPassword.valid && (!oldPassword.pristine || securityForm.submitted)}"
+                          class="form-group"
+                        >
+                          <div class="position-relative">
+                            <input
+                              id="old-password"
+                              type="password"
+                              name="old_password"
+                              #oldPassword="ngModel"
+                              required
+                              [(ngModel)]="password.old_password"
+                              class="form-control"
+                            />
+                            <i
+                              (click)="viewPassword('old-password', 'old-password-eye')"
+                              [ngClass]="{'text-danger': !oldPassword.valid && (!oldPassword.pristine || securityForm.submitted)}"
+                              id="old-password-eye"
+                              class="fe fe-eye"
+                            ></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 mb-2">
+                        <div class="row">
+                          <label class="col">
+                            New Password
+                          </label>
+
+                          <label class="col-auto">
+                            <ion-text
+                              class="strength-level"
+                              [ngClass]="
+                              passwordStrength === 'Strong'
+                            ? 'text-success'
+                          : passwordStrength === 'Medium'
+                          ? 'text-warning'
+                          : 'text-danger'
+                          "
+                              >{{ passwordStrength }}
+                            </ion-text>
+                          </label>
+                        </div>
+                        <div
+                          [ngClass]="{'border-danger': !newPassword.valid && (!newPassword.pristine || securityForm.submitted),
+                      'border-danger2': passwordStrength !== 'Strong' &&
+                      !newPassword.pristine &&
+                      passwordStrength !== 'Medium' || (oldPassword.value === newPassword.value && !newPassword.pristine) }"
+                          class="form-group"
+                        >
+                          <div class="position-relative">
+                            <input
+                              id="new-password"
+                              (keyup)="onChangePassword()"
+                              type="password"
+                              name="password"
+                              #newPassword="ngModel"
+                              required
+                              [(ngModel)]="password.password"
+                              class="form-control"
+                            />
+                            <i
+                              (click)="viewPassword('new-password', 'new-password-eye')"
+                              id="new-password-eye"
+                              [ngClass]="{'text-danger': !newPassword.valid && (!newPassword.pristine || securityForm.submitted),
+                            'text-danger2': oldPassword.value === newPassword.value && !newPassword.pristine }"
+                              class="fe fe-eye"
+                            ></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 mb-2">
+                        <!-- Password -->
+                        <label>Confirm Password</label>
+                        <div
+                          class="form-group"
+                          [ngClass]="{'border-danger': !passwordConfirmation.valid && (!passwordConfirmation.pristine || securityForm.submitted),
+                                      'border-danger2': passwordConfirmation.value !== newPassword.value && !passwordConfirmation.pristine }"
+                        >
+                          <div class="position-relative">
+                            <input
+                              id="confirm-password"
+                              type="password"
+                              class="form-control"
+                              name="password_confirmation"
+                              #passwordConfirmation="ngModel"
+                              required
+                              [(ngModel)]="password.password_confirmation"
+                            />
+                            <i
+                              (click)="viewPassword('confirm-password', 'confirm-password-eye')"
+                              id="confirm-password-eye"
+                              [ngClass]="{'text-danger': !passwordConfirmation.valid && (!passwordConfirmation.pristine || securityForm.submitted),
+                                         'text-danger2': passwordConfirmation.value !== newPassword.value && !passwordConfirmation.pristine }"
+                              class="fe fe-eye"
+                            ></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-lg-5 mt-4">
+                      <div class="card bg-light border">
+                        <div class="card-body">
+                          <!-- Text -->
+                          <p class="mb-2">
+                            Password requirements
+                          </p>
+
+                          <!-- Text -->
+                          <p class="small text-muted mb-2">
+                            To create a new password, you have to meet all of
+                            the following requirements:
+                          </p>
+
+                          <!-- List group -->
+                          <ul class="small text-muted pl-4 mb-0">
+                            <li>
+                              Minimum 8 character
+                            </li>
+                            <li>
+                              At least one special character
+                            </li>
+                            <li>
+                              At least one number
+                            </li>
+                            <li>
+                              Can’t be the same as a previous password
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mt-4">
+                    <div class="col-12 col-md-4 px-5">
+                      <!-- Public profile -->
+                      <div class="form-group">
+                        <!-- Label -->
+                        <label class="mb-1">
+                          Mark Password for Reset
+                        </label>
+
+                        <!-- Form text -->
+                        <small class="form-text text-muted">
+                          User will have to reset his password on next attempt
+                          of loggin in.
+                        </small>
+
+                        <div class="row">
+                          <div class="col-auto">
+                            <!-- Switch -->
+                            <div class="custom-control custom-switch">
+                              <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                name="force_reset"
+                                #forceReset="ngModel"
+                                [(ngModel)]="password.force_reset"
+                                id="switchOne"
+                              />
+                              <label
+                                class="custom-control-label"
+                                for="switchOne"
+                              ></label>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- / .row -->
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-4 offset-md-2 px-5">
+                      <!-- Two Way  Auth -->
+                      <div class="form-group">
+                        <!-- Label -->
+                        <label class="mb-1">
+                          Two Way Authentication
+                        </label>
+
+                        <!-- Form text -->
+                        <small class="form-text text-muted">
+                          Turn off Two Way Authentication.
+                        </small>
+
+                        <div class="row">
+                          <div class="col-auto">
+                            <!-- Switch -->
+                            <div class="custom-control custom-switch">
+                              <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="switchTwo"
+                                name="g2fa"
+                                #passwordG2fa="ngModel"
+                                [(ngModel)]="password.g2fa"
+                                checked
+                              />
+                              <label
+                                class="custom-control-label"
+                                for="switchTwo"
+                              ></label>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- / .row -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr class="mt-4 mb-5" />
+
+                  <div
+                    *ngIf="authError"
+                    class="alert alert-danger"
+                    role="alert"
+                  >
+                    An error occured, please check your inputs!
+                  </div>
+                  <div class="row mt-5">
+                    <div class="col-12 mb-3">
+                      <div class="p-3">
+                        <button type="submit" class="btn btn-primary">
+                          Update Password
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 col-xl-3 custom-bl">
+              <div class="col-12 pb-3">
+                <form
+                  #avatarForm="ngForm"
+                  (change)="onAvatarFormSubmit($event.target.files)"
+                  class="card card-fill custom-card"
+                >
+                  <!-- Image -->
+                  <a href="javascript:;">
+                    <img
+                      src="assets/img/user-placeholder.png"
+                      alt="..."
+                      class="card-img-top rounded-circle"
+                    />
+                  </a>
+
+                  <input
+                    class="hidden"
+                    type="file"
+                    name="file"
+                    id="avatarFile"
+                    [(ngModel)]="file"
+                  />
+
+                  <!-- Body -->
+                  <div class="align-items-center p-3">
+                    <button
+                      type="submit"
+                      class="btn btn-block btn-outline-primary"
+                    >
+                      Upload
+                    </button>
+                  </div>
+
+                  <!-- Footer -->
+                  <div class="card-footer card-footer-boxed p-3 m-0">
+                    <!-- / .row -->
+                    <div
+                      class="dropzone dropzone-single mb-4 dz-clickable"
+                      data-toggle="dropzone"
+                      data-options='{"url": "https://", "maxFiles": 1, "acceptedFiles": "image/*"}'
+                    >
+                      <!-- Fallback -->
+
+                      <!-- Preview -->
+                      <div class="dz-preview dz-preview-single"></div>
+
+                      <div class="dz-default dz-message">
+                        <span>Or Drop files here to upload</span>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Profile End -->
+
+        <!-- Contact -->
+        <div class="tab-pane fade" id="Contact">
+          <div class="row">
+            <div class="col-12 mb-4">
+              <h2 class="header-title">
+                User Emails
+              </h2>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card" data-toggle="lists">
+                    <div class="card-header">
+                      <!-- Form -->
+                      <form>
+                        <div class="input-group input-group-flush">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="fe fe-search"></i>
+                            </span>
+                          </div>
+                          <input
+                            class="form-control search"
+                            type="search"
+                            name="emailText"
+                            [(ngModel)]="emailText"
+                            placeholder="Search"
+                          />
+                        </div>
+                      </form>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table table-sm table-nowrap card-table">
+                        <thead>
+                          <tr>
+                            <th>
+                              <a href="javascript:;" class="text-muted sort">
+                                Email
+                              </a>
+                            </th>
+                            <th colspan="4"></th>
+                          </tr>
+                        </thead>
+                        <tbody
+                          class="list"
+                          *ngIf="emailLoaded; else tableLoading"
+                        >
+                          <tr
+                            *ngFor="let item of (profile$ | async )?.emails | filter: emailText | paginate: emailConfig"
+                          >
+                            <td class="position-relative">
+                              <span
+                                *ngIf="item.flag_primary === 1"
+                                class="fe fe-star text-warning primary-star"
+                              ></span>
+                              {{ item.user_auth_email }}
+                            </td>
+                            <td class="text-right">
+                              <button
+                                type="button"
+                                [disabled]="item.flag_primary === 1"
+                                (click)="setAsPrimaryEmail(item)"
+                                class="btn btn-sm btn-outline-info mr-3"
+                              >
+                                <span class="fe fe-star"></span>
+                              </button>
+                              <button
+                                type="button"
+                                (click)="editEmail(item)"
+                                class="btn btn-sm btn-outline-light mr-3"
+                              >
+                                <span class="fe fe-edit"></span>
+                              </button>
+
+                              <button
+                                type="button"
+                                [disabled]="item.flag_primary === 1"
+                                (click)="removeEmail(item)"
+                                class="btn btn-sm btn-outline-danger"
+                              >
+                                <span class="fe fe-trash-2"></span>
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <pagination-controls
+                      id="emailPagination"
+                      *ngIf="emailLoaded"
+                      (pageChange)="emailPageChanged($event)"
+                    ></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div
+                *ngIf="emailError"
+                class="alert alert-danger bg-transparent border-danger text-danger alert-dismissible fade show"
+                role="alert"
+              >
+                <strong class="text-danger">Email</strong> already exist.
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="alert"
+                  aria-label="Close"
+                >
+                  <span class="text-danger" aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form
+                #emailForm="ngForm"
+                (ngSubmit)="onEmailSave(emailForm)"
+                class="row"
+              >
+                <div class="col-12 col-lg-8">
+                  <div class="form-group">
+                    <label for="email">Email</label>
+
+                    <input
+                      type="email"
+                      class="form-control"
+                      pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{1,}[.]{1}[a-zA-Z]{2,}"
+                      required
+                      [(ngModel)]="email.user_auth_email"
+                      #user_auth_email="ngModel"
+                      [ngClass]="{'border-danger': !user_auth_email.valid && (!user_auth_email.pristine || emailForm.submitted)}"
+                      name="user_auth_email"
+                    />
+                  </div>
+                </div>
+                <div class="col-12 col-lg-4 text-right">
+                  <div class="custom-control custom-switch pb-3 mt-5 pt-2">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      name="flag_primary"
+                      [(ngModel)]="email.flag_primary"
+                      id="primaryEmail"
+                    />
+                    <label class="custom-control-label" for="primaryEmail"
+                      >Is Primary</label
+                    >
+                  </div>
+                </div>
+                <div class="col-12 text-right">
+                  <hr class="mb-4 mt-0" />
+                  <div
+                    (click)="resetEmail(emailForm)"
+                    class="btn btn-outline-light"
+                  >
+                    <span class="fe fe-refresh-ccw"></span> Reset
+                  </div>
+                  <button type="submit" class="ml-4 btn btn-outline-primary">
+                    <span class="fe fe-save"></span> Save
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <hr class="my-4" />
+
+          <div class="row">
+            <div class="col-12 mb-4">
+              <h2 class="header-title">
+                User Phones
+              </h2>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card" data-toggle="lists">
+                    <div class="card-header">
+                      <!-- Form -->
+                      <form>
+                        <div class="input-group input-group-flush">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="fe fe-search"></i>
+                            </span>
+                          </div>
+                          <input
+                            class="form-control search"
+                            type="search"
+                            name="phoneText"
+                            [(ngModel)]="phoneText"
+                            placeholder="Search"
+                          />
+                        </div>
+                      </form>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table table-sm table-nowrap card-table">
+                        <thead>
+                          <tr>
+                            <th>
+                              <a href="javascript:;" class="text-muted sort">
+                                Phone
+                              </a>
+                            </th>
+                            <th colspan="4"></th>
+                          </tr>
+                        </thead>
+                        <tbody
+                          class="list"
+                          *ngIf="phoneLoaded; else tableLoading"
+                        >
+                          <tr
+                            *ngFor="let item of (profile$ | async)?.phones | filter: phoneText | paginate: phoneConfig"
+                          >
+                            <td class="position-relative">
+                              <span
+                                *ngIf="item.flag_primary === 1"
+                                class="fe fe-star text-warning primary-star"
+                              ></span>
+                              {{ item.phone_number }}
+                            </td>
+                            <td class="text-right">
+                              <button
+                                type="button"
+                                [disabled]="item.flag_primary === 1"
+                                (click)="setAsPrimaryPhone(item)"
+                                class="btn btn-sm btn-outline-info mr-3"
+                              >
+                                <span class="fe fe-star"></span>
+                              </button>
+                              <button
+                                type="button"
+                                (click)="editPhone(item)"
+                                class="btn btn-sm btn-outline-light mr-3"
+                              >
+                                <span class="fe fe-edit"></span>
+                              </button>
+                              <button
+                                type="button"
+                                [disabled]="item.flag_primary === 1"
+                                (click)="removePhone(item)"
+                                class="btn btn-sm btn-outline-danger"
+                              >
+                                <span class="fe fe-trash-2"></span>
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <pagination-controls
+                      id="phonePagination"
+                      *ngIf="phoneLoaded"
+                      (pageChange)="phonePageChanged($event)"
+                    ></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div
+                *ngIf="phoneError"
+                class="alert alert-warning alert-dismissible fade show"
+                role="alert"
+              >
+                <strong>Phone Number</strong> already exist.
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="alert"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form
+                #phoneForm="ngForm"
+                (ngSubmit)="onPhoneSave(phoneForm)"
+                class="row"
+              >
+                <div class="col-12 col-lg-6">
+                  <div class="form-group mb-0">
+                    <!-- Label -->
+                    <label>
+                      Type
+                    </label>
+                    <!-- Input -->
+                    <select
+                      class="form-control form-control-select"
+                      [(ngModel)]="phone.phone_type"
+                      required
+                      name="phone_type"
+                      #phone_type="ngModel"
+                      [ngClass]="{'border-danger': !phone_type.valid && (!phone_type.pristine || phoneForm.submitted)}"
+                    >
+                      <option *ngIf="phone.phone_type" selected
+                        >{{ phone.phone_type }}</option
+                      >
+
+                      <option value="Home">Home</option>
+                      <option value="Cell">Cell</option>
+                      <option value="Work">Work</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                  <div class="form-group mb-0">
+                    <label for="phone">Phone</label>
+
+                    <input
+                      type="text"
+                      class="form-control"
+                      required
+                      [(ngModel)]="phone.phone_number"
+                      #phone_number="ngModel"
+                      [ngClass]="{'border-danger': !phone_number.valid && (!phone_number.pristine || phoneForm.submitted)}"
+                      name="phone_number"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-12 text-right">
+                  <div class="custom-control custom-switch pb-3 mt-5 pt-2">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      name="flag_primary"
+                      [(ngModel)]="phone.flag_primary"
+                      id="primaryphone"
+                    />
+                    <label class="custom-control-label" for="primaryphone"
+                      >Is Primary</label
+                    >
+                  </div>
+                </div>
+                <div class="col-12 text-right">
+                  <hr class="mb-4 mt-2" />
+                  <div
+                    (click)="resetPhone(phoneForm)"
+                    class="btn btn-outline-light"
+                  >
+                    <span class="fe fe-refresh-ccw"></span> Reset
+                  </div>
+                  <button type="submit" class="ml-4 btn btn-outline-primary">
+                    <span class="fe fe-save"></span> Save
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- Contact End -->
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</ion-content>
+
+<ng-template #load>
+  <app-loader [@enterAnimation]></app-loader>
+</ng-template>
+
+<ng-template #tableLoading>
+  <div class="loading-spinner p-3">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div></ng-template
+>
+
+<ng-template #loading2>
+  <div class="loading-spinner">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div></ng-template
+>

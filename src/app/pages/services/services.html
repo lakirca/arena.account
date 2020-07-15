@@ -1,0 +1,82 @@
+<ion-content>
+  <div
+    class="main-content mt-6 p-0 p-sm-2 p-md-4"
+    *ngIf="(services$ | async); else load"
+    [@enterAnimation]
+  >
+    <!-- HEADER -->
+    <div class="header">
+      <div class="container-fluid">
+        <!-- Body -->
+        <div class="header-body">
+          <div class="row align-items-end">
+            <div class="col-12">
+              <!-- Title -->
+              <h1 class="header-title">
+                Services
+              </h1>
+            </div>
+          </div>
+        </div>
+        <!-- / .header-body -->
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="container-fluid">
+      <div class="container-fluid">
+        <div class="row">
+          <div
+            class="col-12 col-md-6 col-lg-4 col-xl-3"
+            *ngFor="let item of services$ | async | filter: searchText"
+          >
+            <!-- Card -->
+            <div class="card">
+              <span *ngIf="false" class="badge badge-soft-success holder">
+                Account Holder
+              </span>
+              <!-- Body -->
+              <div class="card-body text-center">
+                <!-- Heading -->
+                <h2 class="card-title">
+                  <a href="javascript:;">{{ item.service_name }}</a>
+                </h2>
+                <h6 class="header-pretitle">
+                  {{ item.user?.data.name }}
+                </h6>
+              </div>
+
+              <!-- Footer -->
+              <div class="card-footer card-footer-boxed">
+                <div class="row align-items-center justify-content-between">
+                  <div class="col-auto">
+                    <!-- Status -->
+                    <small *ngIf="item.stamp_updated">
+                      <i class="fe fe-clock"></i>
+                      {{ item.stamp_updated * 1000 | timeago }}
+                    </small>
+                  </div>
+                  <div class="col-auto">
+                    <!-- Link -->
+                    <a
+                      href="javascript:;"
+                      [routerLink]="[item.service_uuid]"
+                      class="btn btn-sm btn-primary"
+                    >
+                      View More
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</ion-content>
+
+<ng-template #load>
+  <app-loader [@enterAnimation]></app-loader>
+</ng-template>
